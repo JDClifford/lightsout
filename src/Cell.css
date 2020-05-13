@@ -1,0 +1,13 @@
+.Cell {
+	height: 7vw;
+	width: 7vw;
+	background-color: darkgray;
+	border: black 1px solid;
+	border-radius: 10px;
+	transition-duration: 1000ms;
+}
+
+.Cell-lit {
+	background-color: white;
+	transition-duration: 600ms;
+}
