@@ -5,6 +5,7 @@
 	border: black 1px solid;
 	border-radius: 10px;
 	transition-duration: 1000ms;
+	cursor: pointer;
 }
 
 .Cell-lit {

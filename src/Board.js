@@ -6,7 +6,7 @@ class Board extends Component {
 	static defaultProps = {
 		nrows: 4,
 		ncols: 4,
-		chanceLightStartsOn: 0.9
+		chanceLightStartsOn: 0.5
 	};
 
 	constructor(props) {
@@ -16,11 +16,12 @@ class Board extends Component {
 		this.flipCellsAround = this.flipCellsAround.bind(this);
 		this.randomDraw = this.randomDraw.bind(this);
 		this.drawBoard = this.drawBoard.bind(this);
+		this.restartGame = this.restartGame.bind(this);
 	}
 
 	randomDraw() {
-		let foo = Math.random();
-		if (foo < this.props.chanceLightStartsOn) {
+		let x = Math.random();
+		if (x < this.props.chanceLightStartsOn) {
 			return true;
 		} else {
 			return false;
@@ -70,20 +71,37 @@ class Board extends Component {
 				{val.map(
 					(bool, idx2) =>
 						bool === true ? (
-							<Cell isLit={true} coord={idx1 + '-' + idx2} flipCellsAroundMe={this.flipCellsAround} />
+							<Cell
+								key={idx1 + idx2}
+								isLit={true}
+								coord={idx1 + '-' + idx2}
+								flipCellsAroundMe={this.flipCellsAround}
+							/>
 						) : (
-							<Cell isLit={false} coord={idx1 + '-' + idx2} flipCellsAroundMe={this.flipCellsAround} />
+							<Cell
+								key={idx1 + idx2}
+								isLit={false}
+								coord={idx1 + '-' + idx2}
+								flipCellsAroundMe={this.flipCellsAround}
+							/>
 						)
 				)}
 			</div>
 		));
 	}
 
+	restartGame() {
+		this.setState({ hasWon: false, board: this.createBoard() });
+	}
+
 	render() {
 		return this.state.hasWon ? (
-			<h1>You win!</h1>
+			<div className='Board'>
+				<span className='neon'>You</span> <span className='flux'>win!</span>
+				<button onClick={this.restartGame}>Play Again?</button>
+			</div>
 		) : (
-			<div>
+			<div className='Board'>
 				<div className='container'>
 					<span className='neon'>Lights</span>
 					<span className='flux'>Out</span>
